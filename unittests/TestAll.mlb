@@ -1,5 +1,5 @@
 $(SML_LIB)/basis/basis.mlb
-All.mlb
+../lib/All.mlb
 Testing.sml
 
 (* Tests *)
