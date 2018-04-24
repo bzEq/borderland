@@ -1,22 +1,11 @@
 $(SML_LIB)/basis/basis.mlb
-Comparable.sig
-OrdMap.sig
-OrdSet.sig
-Support.sml
-
+All.mlb
 Testing.sml
 
-SplayTree.sml
+(* Tests *)
 SplayTreeTest.sml
-
-SplayMapFn.sml
 SplayMapFnTest.sml
-
-Flags.sml
 FlagsTest.sml
 
-SplaySetFn.sml
-
-TCPServer.sml
-
+(* TestMain *)
 TestingMain.sml
