@@ -1,0 +1,17 @@
+$(SML_LIB)/basis/basis.mlb
+Comparable.sig
+OrdMap.sig
+Support.sml
+
+Testing.sml
+
+SplayTree.sml
+SplayTreeTest.sml
+
+SplayMapFn.sml
+SplayMapFnTest.sml
+
+Flags.sml
+FlagsTest.sml
+
+TestingMain.sml
