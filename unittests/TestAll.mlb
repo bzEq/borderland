@@ -8,4 +8,4 @@ SplayMapFnTest.sml
 FlagsTest.sml
 
 (* TestMain *)
-TestingMain.sml
+TestMain.sml
