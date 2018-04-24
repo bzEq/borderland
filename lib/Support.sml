@@ -2,6 +2,10 @@
 
 structure Support = struct
 
+infix |>
+
+fun x |> f = f x
+
 datatype ('v, 'e) result = OK of 'v
                          | ERR of 'e
 
@@ -60,5 +64,6 @@ in
           (fn () => TextIO.input is)
 end
 
+fun intToFD n = n |> SysWord.fromInt |> Posix.FileSys.wordToFD
 
 end
