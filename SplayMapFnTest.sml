@@ -46,5 +46,8 @@ end
 
 end
 
-val _ = Testing.addTest (fn () => SplayMapFnTest.putAndGet 1048576)
-val _ = Testing.addTest (fn () => SplayMapFnTest.putAndRemove 1048576)
+val _ = Testing.addTest "SplayMapFnTest.putAndGet"
+                        (fn () => SplayMapFnTest.putAndGet 1048576)
+
+val _ = Testing.addTest "SplayMapFnTest.putAndRemove"
+                        (fn () => SplayMapFnTest.putAndRemove 1048576)

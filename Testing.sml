@@ -16,19 +16,20 @@ fun assertFalse exp =
     else
       ()
 
-val tests : (unit -> unit) list ref = ref []
+val tests : (string * (unit -> unit)) list ref = ref []
 
-fun addTest test = tests := !tests @ [test]
+fun addTest desc test = tests := (desc, test)::(!tests)
 
 fun runAll () = let
   fun loop [] = ()
-    | loop (test::rest) = (
-      test ();
-      loop rest
+    | loop ((desc, test)::rest) = (
+        Support.println ("Running " ^ desc);
+        test ();
+        loop rest
     )
 in
   print ("Number of tests: " ^ (Int.toString (List.length (!tests))) ^ "\n");
-  loop (!tests)
+  loop (List.rev (!tests))
 end
 
 end

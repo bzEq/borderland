@@ -48,4 +48,4 @@ end
 
 end
 
-val _ = Testing.addTest FlagsTest.testParse
+val _ = Testing.addTest "FlagsTest.testParse" FlagsTest.testParse

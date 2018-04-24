@@ -48,4 +48,5 @@ end
 
 end
 
-val _ = Testing.addTest SplayTreeTest.testSplay
+val _ = Testing.addTest "SplayTreeTest.testSplay"
+                        SplayTreeTest.testSplay
