@@ -1,6 +1,7 @@
 $(SML_LIB)/basis/basis.mlb
 Comparable.sig
 OrdMap.sig
+OrdSet.sig
 Support.sml
 
 Testing.sml
@@ -13,5 +14,9 @@ SplayMapFnTest.sml
 
 Flags.sml
 FlagsTest.sml
+
+SplaySetFn.sml
+
+TCPServer.sml
 
 TestingMain.sml
