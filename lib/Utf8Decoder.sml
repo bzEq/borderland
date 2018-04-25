@@ -43,9 +43,9 @@ end
 
 fun countCodePoints s = let
     val s' = Substring.full s
-    fun parseAcc (state, codepoint, count) sub = (
+    fun parseAcc (result as (state, codepoint, count)) sub = (
         case (Substring.getc sub) of
-            NONE => (state, codepoint, count)
+            NONE => result
           | SOME (c, rest) => let
               val (state', codepoint') =
                           decode (state, codepoint, Word32.fromInt (Char.ord c))
