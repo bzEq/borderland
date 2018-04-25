@@ -6,6 +6,7 @@ Testing.sml
 SplayTreeTest.sml
 SplayMapFnTest.sml
 FlagsTest.sml
+Utf8DecoderTest.sml
 
 (* TestMain *)
 TestMain.sml
