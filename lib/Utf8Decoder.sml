@@ -36,7 +36,7 @@ fun decode (state : Word32.word, codepoint : Word32.word , byte : Word32.word) =
             Word32.orb ((Word32.andb (byte, 0wx3f)), (Word32.<< (codepoint, 0w6)))
         else
             Word32.andb (Word32.>> (Word32.fromLarge 0wxff,  ty), byte)
-    val state' = Word32.fromInt (Word8.toInt (Array.sub (utf8d, Word32.toInt ((state * 0w16) + ty + 0wx100))))
+    val state' = Word32.fromInt (Word8.toInt (Array.sub (utf8d, Word32.toInt ((state * 0w16) + ty + 0w256))))
 in
     (state', codepoint')
 end
