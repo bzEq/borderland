@@ -17,7 +17,8 @@ fun Utf8Test () = let
     val s = Support.readFromFile utf8txt
     val x = Utf8Decoder.countCodePoints s
 in
-    Testing.assertTrue (Option.isSome x)
+    Testing.assertTrue (Option.isSome x);
+    Testing.assertTrue ((Option.valOf x) = 703)
 end
 
 end
