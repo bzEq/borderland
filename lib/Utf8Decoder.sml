@@ -34,7 +34,7 @@ type utf8char = {
     slice : Substring.substring
 }
 
-fun decode (state : Word32.word, codepoint : Word32.word , byte : Word32.word) = let
+fun decode (state : Word32.word, codepoint : Word32.word, byte : Word32.word) = let
     val ty : Word32.word =
         Word32.fromInt (Word8.toInt (Array.sub (utf8d, (Word32.toInt byte))))
     val codepoint' =
