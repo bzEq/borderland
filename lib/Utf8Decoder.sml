@@ -29,6 +29,11 @@ in
 val utf8d = Array.fromList (List.map (fn x => Word8.fromInt (x)) state)
 end
 
+type utf8char = {
+    codepoint : Word32.word,
+    slice : Substring.substring
+}
+
 fun decode (state : Word32.word, codepoint : Word32.word , byte : Word32.word) = let
     val ty : Word32.word = Word32.fromInt (Word8.toInt (Array.sub (utf8d, (Word32.toInt byte))))
     val codepoint' =
@@ -41,28 +46,39 @@ in
     (state', codepoint')
 end
 
-fun countCodePoints s = let
+fun toUtf8String s = let
     val s' = Substring.full s
-    fun parseAcc (result as (state, codepoint, count)) sub = (
-        case (Substring.getc sub) of
-            NONE => result
+    val totalLength = Substring.size s'
+    fun getSlice i len = Substring.slice (s', i, SOME len)
+    fun parseAcc acc (state, codepoint) leftBoundOfSlice stream =
+        case (Substring.getc stream) of
+            NONE => (state, acc)
           | SOME (c, rest) => let
-              val (state', codepoint') =
-                          decode (state, codepoint, Word32.fromInt (Char.ord c))
+              val (state', codepoint') = decode (state, codepoint, Word32.fromInt (Char.ord c))
           in
-              if (Word32.toInt state') = accept then
-                  parseAcc (state', codepoint', count + 1) rest
+              if (Word32.toInt state') = accept then let
+                  val nextIndex = totalLength - (Substring.size rest)
+                  val ch : utf8char = {
+                      codepoint = codepoint',
+                      slice = Substring.slice (s', leftBoundOfSlice, SOME (nextIndex - leftBoundOfSlice))
+                  }
+              in
+                  parseAcc (ch::acc) (state', codepoint') nextIndex rest
+              end
               else
-                  parseAcc (state', codepoint', count) rest
+                  parseAcc acc (state', codepoint') leftBoundOfSlice rest
           end
-    )
-    val (state, codepoint, count) =
-        parseAcc (Word32.fromInt 0, Word32.fromInt 0, 0) s'
+    val (state, result) = parseAcc [] ((Word32.fromInt 0), (Word32.fromInt 0)) 0 s'
 in
     if (Word32.toInt state) = accept then
-        SOME count
+        SOME (List.rev result)
     else
         NONE
 end
+
+fun countCodePoints s =
+    case (toUtf8String s) of
+        NONE => NONE
+      | SOME result => SOME (List.length result)
 
 end
