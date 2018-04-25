@@ -35,13 +35,19 @@ type utf8char = {
 }
 
 fun decode (state : Word32.word, codepoint : Word32.word , byte : Word32.word) = let
-    val ty : Word32.word = Word32.fromInt (Word8.toInt (Array.sub (utf8d, (Word32.toInt byte))))
+    val ty : Word32.word =
+        Word32.fromInt (Word8.toInt (Array.sub (utf8d, (Word32.toInt byte))))
     val codepoint' =
         if (Word32.toInt state) <> accept then
             Word32.orb ((Word32.andb (byte, 0wx3f)), (Word32.<< (codepoint, 0w6)))
         else
             Word32.andb (Word32.>> (Word32.fromLarge 0wxff,  ty), byte)
-    val state' = Word32.fromInt (Word8.toInt (Array.sub (utf8d, Word32.toInt ((state * 0w16) + ty + 0w256))))
+    val state' =
+        Word32.fromInt
+            (Word8.toInt
+                 (Array.sub
+                      (utf8d, Word32.toInt
+                                  ((state * 0w16) + ty + 0w256))))
 in
     (state', codepoint')
 end
@@ -54,13 +60,16 @@ fun toUtf8String s = let
         case (Substring.getc stream) of
             NONE => (state, acc)
           | SOME (c, rest) => let
-              val (state', codepoint') = decode (state, codepoint, Word32.fromInt (Char.ord c))
+              val (state', codepoint') =
+                  decode (state, codepoint, Word32.fromInt (Char.ord c))
           in
               if (Word32.toInt state') = accept then let
                   val nextIndex = totalLength - (Substring.size rest)
                   val ch : utf8char = {
                       codepoint = codepoint',
-                      slice = Substring.slice (s', leftBoundOfSlice, SOME (nextIndex - leftBoundOfSlice))
+                      slice =
+                      Substring.slice
+                          (s', leftBoundOfSlice, SOME (nextIndex - leftBoundOfSlice))
                   }
               in
                   parseAcc (ch::acc) (state', codepoint') nextIndex rest
