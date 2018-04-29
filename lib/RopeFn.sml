@@ -1,6 +1,7 @@
 (* Copyright (c) 2018 Kai Luo <gluokai@gmail.com>. All rights reserved. *)
 
 functor RopeFn(C : CHARSET) = struct
+open Support
 structure Charset = C
 
 val maxSizeOfSlice = 4
@@ -51,12 +52,15 @@ fun getOrder i NIL = raise Subscript
       val sliceLength = Charset.length slice
       val rightBound = weight + sliceLength
   in
-      if i < weight then
+      if i < weight then (
           (i, LESS)
-      else if i < rightBound then
+      )
+      else if i < rightBound then (
           (i - weight, EQUAL)
-      else
+      )
+      else (
           (i - rightBound, GREATER)
+      )
   end
 
 
@@ -130,7 +134,7 @@ fun splay NIL _ = NIL
                                   CONCAT {
                                       slice = slice'',
                                       size = size,
-                                      left = left,
+                                      left = left'',
                                       right = CONCAT {
                                           slice = slice',
                                           size = (length right'') +
