@@ -61,6 +61,19 @@ in
     )
 end
 
+fun testSplay3 () = let
+    val str = "Copyright (c) 2018 Kai Luo <gluokai@gmail.com>. All rights reserved."
+    val k = ref 0
+    val l = String.size str
+    val root = ref (CharRope.init (Substring.full str))
+in
+    while (!k < l) do (
+        root := CharRope.splay (!root) (!k);
+        assertTrue ((CharRope.toString (!root)) = str);
+        k := !k +1
+    )
+end
+
 end
 
 val _ = Testing.addTest "CharRopeTest.testInit" CharRopeTest.testInit
@@ -68,3 +81,4 @@ val _ = Testing.addTest "CharRopeTest.testConcat" CharRopeTest.testConcat
 val _ = Testing.addTest "CharRopeTest.testSplay" CharRopeTest.testSplay
 val _ = Testing.addTest "CharRopeTest.testSplay1" CharRopeTest.testSplay1
 val _ = Testing.addTest "CharRopeTest.testSplay2" CharRopeTest.testSplay2
+val _ = Testing.addTest "CharRopeTest.testSplay3" CharRopeTest.testSplay3
