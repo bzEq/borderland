@@ -2,6 +2,7 @@ $(SML_LIB)/basis/basis.mlb
 $(SML_LIB)/basis/mlton.mlb
 
 Comparable.sig
+Charset.sig
 OrdMap.sig
 OrdSet.sig
 Support.sml
@@ -11,3 +12,5 @@ Flags.sml
 SplaySetFn.sml
 TCPServer.sml
 Utf8Decoder.sml
+RopeFn.sml
+CharRope.sml
