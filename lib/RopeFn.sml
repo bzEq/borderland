@@ -330,7 +330,7 @@ fun exhaustedLeftRotate NIL = NIL
                                            size = size - size' +
                                                   (length left'),
                                            left = left,
-                                           right = right'
+                                           right = left'
                                        },
                                        right = right'
                                  })
@@ -348,5 +348,9 @@ fun concat NIL NIL = NIL
             right = r
         }
       | _ => raise Fail "exhaustedLeftRotate failed"
+
+fun toString NIL = ""
+  | toString (CONCAT {slice, left, right, ...}) =
+    (toString left) ^ (Charset.toString slice) ^ (toString right)
 
 end
