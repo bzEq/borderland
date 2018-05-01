@@ -357,7 +357,7 @@ fun toString NIL = ""
   | toString (CONCAT {slice, left, right, ...}) =
     (toString left) ^ (Charset.toString slice) ^ (toString right)
 
-fun slice' (NIL, _, _) = raise Subscript
+fun slice' (NIL, _, _) = NIL
   | slice' (_, _, 0) = NIL
   | slice' ((c as CONCAT {
                   slice=sl,
@@ -427,7 +427,7 @@ fun slice' (NIL, _, _) = raise Subscript
         )
   end
 
-fun slice (NIL, _, _) = raise Subscript
+fun slice (NIL, _, _) = NIL
   | slice ((c as CONCAT {
                  size=size,
                  ...
