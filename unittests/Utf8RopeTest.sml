@@ -13,7 +13,8 @@ fun testInit () = let
     val s = readFromFile "unittests/utf8.txt"
     val r = Utf8Rope.init (toArraySlice s)
 in
-    assertTrue ((Utf8Rope.length r) = 703)
+    assertTrue ((Utf8Rope.length r) = 703);
+    assertTrue ((Utf8Rope.toString r) = s)
 end
 
 end
