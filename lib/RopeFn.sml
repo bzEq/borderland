@@ -431,9 +431,13 @@ fun slice (NIL, _, _) = raise Subscript
   | slice ((c as CONCAT {
                  size=size,
                  ...
-           }), start, len) = case len of
-                                 NONE => slice' (c, start, size - start)
-                               | SOME l => slice' (c, start, l)
-
+           }), start, len) =
+    case len of
+        NONE => let
+         val l = size - start
+     in
+         splay (slice' (c, start, l)) (l div 2)
+     end
+      | SOME l => splay (slice' (c, start, l)) (l div 2)
 
 end
