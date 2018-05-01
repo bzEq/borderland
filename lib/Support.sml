@@ -61,7 +61,7 @@ fun readFromFile (filename : string) : string = let
     val is = TextIO.openIn filename
 in
     defer (fn () => TextIO.closeIn is)
-          (fn () => TextIO.input is)
+          (fn () => TextIO.inputAll is)
 end
 
 fun intToFD n = n |> SysWord.fromInt |> Posix.FileSys.wordToFD
