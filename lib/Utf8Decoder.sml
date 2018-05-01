@@ -52,7 +52,7 @@ in
     (state', codepoint')
 end
 
-fun toUtf8String s = let
+fun toUtf8String s : utf8char list option = let
     val s' = Substring.full s
     val totalLength = Substring.size s'
     fun getSlice i len = Substring.slice (s', i, SOME len)
