@@ -428,10 +428,8 @@ fun slice' (NIL, _, _) = raise Subscript
 
 fun slice (NIL, _, _) = raise Subscript
   | slice ((c as CONCAT {
-                 slice=sl,
                  size=size,
-                 left=left,
-                 right=right
+                 ...
            }), start, len) = case len of
                                  NONE => slice' (c, start, size - start)
                                | SOME l => slice' (c, start, l)
