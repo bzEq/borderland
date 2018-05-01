@@ -433,7 +433,7 @@ fun slice (NIL, _, _) = raise Subscript
                  left=left,
                  right=right
            }), start, len) = case len of
-                                 NONE => slice' (c, start, size-start)
+                                 NONE => slice' (c, start, size - start)
                                | SOME l => slice' (c, start, l)
 
 
