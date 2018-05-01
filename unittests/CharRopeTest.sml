@@ -74,6 +74,38 @@ in
     )
 end
 
+fun testSlice () = let
+    val str = "Copyright (c) 2018 Kai Luo <gluokai@gmail.com>. All rights reserved."
+    val r = CharRope.init (Substring.full str)
+    val r' = CharRope.slice (r, 6, NONE)
+    val str' = CharRope.toString r'
+in
+    assertTrue (str' = "ght (c) 2018 Kai Luo <gluokai@gmail.com>. All rights reserved.")
+end
+
+fun testSlice1 () = let
+    val str = "Copyright (c) 2018 Kai Luo <gluokai@gmail.com>. All rights reserved."
+    val r = CharRope.init (Substring.full str)
+    val l = String.size str
+    val i = ref 0
+    val j = ref 0
+in
+    while (!i < l) do (
+        j := 0;
+        while ((!j) <= (l - (!i))) do (
+            let
+                val r' = CharRope.slice (r, (!i), SOME (!j))
+                val str' = CharRope.toString r'
+            in
+                assertTrue (str' = String.extract (str, (!i), SOME (!j)))
+            end;
+            j := (!j) + 1
+        );
+        i := (!i) + 1
+    )
+end
+
+
 end
 
 val _ = Testing.addTest "CharRopeTest.testInit" CharRopeTest.testInit
@@ -82,3 +114,5 @@ val _ = Testing.addTest "CharRopeTest.testSplay" CharRopeTest.testSplay
 val _ = Testing.addTest "CharRopeTest.testSplay1" CharRopeTest.testSplay1
 val _ = Testing.addTest "CharRopeTest.testSplay2" CharRopeTest.testSplay2
 val _ = Testing.addTest "CharRopeTest.testSplay3" CharRopeTest.testSplay3
+val _ = Testing.addTest "CharRopeTest.testSlice" CharRopeTest.testSlice
+val _ = Testing.addTest "CharRopeTest.testSlice1" CharRopeTest.testSlice1

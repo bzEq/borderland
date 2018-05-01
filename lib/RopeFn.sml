@@ -357,4 +357,84 @@ fun toString NIL = ""
   | toString (CONCAT {slice, left, right, ...}) =
     (toString left) ^ (Charset.toString slice) ^ (toString right)
 
+fun slice' (NIL, _, _) = raise Subscript
+  | slice' (_, _, 0) = NIL
+  | slice' ((c as CONCAT {
+                  slice=sl,
+                  size=size,
+                  left=left,
+                  right=right
+            }), start, len) = let
+      val startOrder = getOrder start c
+      val endOrder = getOrder (start + len - 1) c
+  in
+      case startOrder of
+          (i, EQUAL) => (
+           case endOrder of
+               (j, EQUAL) => (
+               CONCAT {
+                   slice = Charset.slice (sl, i, SOME (j - i + 1)),
+                   size = j - i + 1,
+                   left = NIL,
+                   right = NIL
+               })
+             | (_, LESS) =>
+               raise Fail "Right bound should not be less than left bound"
+             | (j, GREATER) => let
+                 val right' = slice' (right, 0, j + 1)
+             in
+                 CONCAT {
+                     slice = Charset.slice (sl, i, NONE),
+                     size = (Charset.length sl) - i + (length right'),
+                     left = NIL,
+                     right = right'
+                 }
+             end
+       )
+        | (i, LESS) => (
+            case endOrder of
+                (j, EQUAL) => let
+                 val left' = slice' (left, i, (length left) - i)
+             in
+                 CONCAT {
+                     slice = Charset.slice (sl, 0, SOME (j + 1)),
+                     size = (length left') + (j + 1),
+                     left = left',
+                     right = NIL
+                 }
+             end
+              | (j, LESS) => slice' (left, i, j - i + 1)
+              | (j, GREATER) => let
+                  val left' = slice' (left, i, (length left) - i)
+                  val right'= slice' (right, 0, j + 1)
+              in
+                  CONCAT {
+                      slice = sl,
+                      size = (length left') +
+                             (Charset.length sl) +
+                             (length right'),
+                      left = left',
+                      right = right'
+                  }
+              end
+        )
+        | (i, GREATER) => (
+            case endOrder of
+                (_, EQUAL) => raise Fail "Right bound should not be less than left bound"
+              | (_, LESS) => raise Fail "Right bound should not be less than left bound"
+              | (j, GREATER) => slice' (right, i, j - i + 1)
+        )
+  end
+
+fun slice (NIL, _, _) = raise Subscript
+  | slice ((c as CONCAT {
+                 slice=sl,
+                 size=size,
+                 left=left,
+                 right=right
+           }), start, len) = case len of
+                                 NONE => slice' (c, start, size-start)
+                               | SOME l => slice' (c, start, l)
+
+
 end
