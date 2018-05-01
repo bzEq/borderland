@@ -372,12 +372,13 @@ fun slice' (NIL, _, _) = raise Subscript
           (i, EQUAL) => (
            case endOrder of
                (j, EQUAL) => (
-               CONCAT {
-                   slice = Charset.slice (sl, i, SOME (j - i + 1)),
-                   size = j - i + 1,
-                   left = NIL,
-                   right = NIL
-               })
+                CONCAT {
+                    slice = Charset.slice (sl, i, SOME (j - i + 1)),
+                    size = j - i + 1,
+                    left = NIL,
+                    right = NIL
+                }
+             )
              | (_, LESS) =>
                raise Fail "Right bound should not be less than left bound"
              | (j, GREATER) => let
@@ -390,7 +391,7 @@ fun slice' (NIL, _, _) = raise Subscript
                      right = right'
                  }
              end
-       )
+        )
         | (i, LESS) => (
             case endOrder of
                 (j, EQUAL) => let
