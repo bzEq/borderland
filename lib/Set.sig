@@ -2,7 +2,7 @@
 
 signature SET = sig
 
-structure Key : COMPARABLE
+type elem
 
 type set
 
@@ -10,10 +10,10 @@ val empty : set
 
 val isEmpty : set -> bool
 
-val add : set -> Key.t -> set
+val add : set -> elem -> set
 
-val contains : set -> Key.t -> bool
+val contains : set -> elem -> bool
 
-val remove : set -> Key.t -> set
+val remove : set -> elem -> set
 
 end

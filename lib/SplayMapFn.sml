@@ -3,11 +3,13 @@
 functor SplayMapFn (K : COMPARABLE) : MAP = struct
 structure Key = K
 
+type key_t = Key.t
+
 open SplayTree
 
 datatype 'a map = EMPTY
                 | MAP of {
-                    root : (Key.t * 'a) tree ref
+                    root : (key_t * 'a) tree ref
                 }
 
 val empty = EMPTY

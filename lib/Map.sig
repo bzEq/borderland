@@ -12,7 +12,7 @@
 
 signature MAP = sig
 
-structure Key : COMPARABLE
+type key_t
 
 type 'a map
 
@@ -20,12 +20,12 @@ val empty : 'a map
 
 val isEmpty : 'a map -> bool
 
-val put : 'a map -> (Key.t * 'a) -> 'a map
+val put : 'a map -> (key_t * 'a) -> 'a map
 
-val get : 'a map -> Key.t -> 'a option
+val get : 'a map -> key_t -> 'a option
 
-val contains : 'a map -> Key.t -> bool
+val contains : 'a map -> key_t -> bool
 
-val remove : 'a map -> Key.t -> ('a map * 'a) option
+val remove : 'a map -> key_t -> ('a map * 'a) option
 
 end

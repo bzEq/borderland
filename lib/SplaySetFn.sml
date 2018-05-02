@@ -1,8 +1,9 @@
 (* Copyright (c) 2018 Kai Luo <gluokai@gmail.com>. All rights reserved. *)
 
 functor SplaySetFn(K : COMPARABLE) : SET = struct
-
 structure Key = K
+
+type elem = Key.t
 
 structure Set = SplayMapFn (Key)
 
