@@ -1,6 +1,6 @@
 (* Copyright (c) 2018 Kai Luo <gluokai@gmail.com>. All rights reserved. *)
 
-signature ORD_SET = sig
+signature SET = sig
 
 structure Key : COMPARABLE
 

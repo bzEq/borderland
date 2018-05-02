@@ -1,6 +1,6 @@
 (* Copyright (c) 2018 Kai Luo <gluokai@gmail.com>. All rights reserved. *)
 
-functor SplayMapFn (K : COMPARABLE) : ORD_MAP = struct
+functor SplayMapFn (K : COMPARABLE) : MAP = struct
 structure Key = K
 
 open SplayTree

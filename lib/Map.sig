@@ -10,7 +10,7 @@
  * structure over ordered monomorphic keys.
  *)
 
-signature ORD_MAP = sig
+signature MAP = sig
 
 structure Key : COMPARABLE
 

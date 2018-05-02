@@ -1,6 +1,6 @@
 (* Copyright (c) 2018 Kai Luo <gluokai@gmail.com>. All rights reserved. *)
 
-functor SplaySetFn(K : COMPARABLE) : ORD_SET = struct
+functor SplaySetFn(K : COMPARABLE) : SET = struct
 
 structure Key = K
 

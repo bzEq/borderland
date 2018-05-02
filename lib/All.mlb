@@ -3,8 +3,8 @@ $(SML_LIB)/basis/mlton.mlb
 
 Comparable.sig
 Charset.sig
-OrdMap.sig
-OrdSet.sig
+Map.sig
+Set.sig
 Support.sml
 SplayTree.sml
 SplayMapFn.sml
