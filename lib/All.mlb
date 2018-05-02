@@ -14,4 +14,5 @@ TCPServer.sml
 Utf8Decoder.sml
 RopeFn.sml
 CharRope.sml
+Utf8.sml
 Utf8Rope.sml
