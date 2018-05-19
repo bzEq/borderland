@@ -16,3 +16,4 @@ RopeFn.sml
 CharRope.sml
 Utf8.sml
 Utf8Rope.sml
+Stack.sml

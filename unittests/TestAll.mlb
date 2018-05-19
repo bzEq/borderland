@@ -9,6 +9,7 @@ FlagsTest.sml
 Utf8DecoderTest.sml
 CharRopeTest.sml
 Utf8RopeTest.sml
+StackTest.sml
 
 (* TestMain *)
 TestMain.sml
