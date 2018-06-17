@@ -46,13 +46,14 @@ end
 
 fun Benchmark n = let
   val i = ref 0
-  val m = IntMap.empty
+  val m = ref IntMap.empty
   val rng = Random.rand (0, n)
   val x = ref 0
 in
   while !i < n do (
     x := Random.randInt rng;
-    IntMap.put m (!x, !x);
+    m := IntMap.put (!m) (!x, !x);
+    Testing.assertTrue (Option.isSome (IntMap.get (!m) (!x)));
     i := (!i) + 1
   )
 end
