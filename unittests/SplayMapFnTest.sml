@@ -44,6 +44,19 @@ in
     Testing.assertTrue (IntMap.isEmpty m)
 end
 
+fun Benchmark n = let
+  val i = ref 0
+  val m = IntMap.empty
+  val rng = Random.rand (0, n)
+  val x = ref 0
+in
+  while !i < n do (
+    x := Random.randInt rng;
+    IntMap.put m (!x, !x);
+    i := (!i) + 1
+  )
+end
+
 end
 
 val _ = Testing.addTest "SplayMapFnTest.putAndGet"
@@ -51,3 +64,6 @@ val _ = Testing.addTest "SplayMapFnTest.putAndGet"
 
 val _ = Testing.addTest "SplayMapFnTest.putAndRemove"
                         (fn () => SplayMapFnTest.putAndRemove 1048576)
+
+val _ = Testing.addTest "SplayMapFnTest.Benchmark"
+                        (fn () => SplayMapFnTest.Benchmark 1048576)
